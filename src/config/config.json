@@ -1,0 +1,16 @@
+{
+  "instagram": {
+    "username": "",
+    "password": "",
+    "base_url": "https://instagram.com/"
+  },
+  "creator_studio": {
+    "email": "",
+    "password": "",
+    "base_url": "https://www.facebook.com/creatorstudio/"
+  },
+  "puppeteer": {
+    "headless": false,
+    "base_url": "https://instagram.com/ "
+  }
+}
