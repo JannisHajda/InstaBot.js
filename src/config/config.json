@@ -1,8 +1,9 @@
 {
   "instagram": {
-    "username": "",
-    "password": "",
-    "base_url": "https://instagram.com/"
+    "username": "shototd",
+    "password": "lXflz00Tr11P7hsh&#kC",
+    "base_url": "https://instagram.com",
+    "comments": ["I like this!", "You are sexy!"]
   },
   "creator_studio": {
     "email": "",
@@ -11,6 +12,6 @@
   },
   "puppeteer": {
     "headless": false,
-    "base_url": "https://instagram.com/ "
+    "base_url": "https://instagram.com "
   }
 }
