@@ -1,33 +1,24 @@
-/*
-  function startstop(){
-    if isRunning == flase {
-      let intervall = setInterval(function(){ instabot(); }, 3600000);
-     boolean isRunning = true;
-   }else{
-      clearInterval(intervall);
-      isRunning = false;
-   }
-  }
-  
-  function instabot(){
-  await InstaBot.search(["dog", "cat"]);  
-  await InstaBot.unfollow(["thekatiemonroe_"]);
-  await InstaBot.like(["B5OFd3-JD4u"]);
-  await InstaBot.comment(["B5OFeOxgqCC"]);
-  await InstaBot.follow(["thekatiemonroe_"]);
-  }
-*/
-
 const instabot = require("./core/instabot");
+var intervall;
 
-const run = async () => {
+try {
   InstaBot = new instabot();
   await InstaBot.initPuppeteer();
   await InstaBot.loginInstagram();
+
+} catch (e) {
+  console.error(e);
+}
+
+start();
+
+function start() {
   InstaBot.interact();
-  let intervall = setInterval(function() {
+  intervall = setInterval(function () {
     InstaBot.interact();
   }, 3600000);
-};
+}
 
-run().catch(e => console.log(e));
+function stop() {
+  clearInterval(intervall);
+}
