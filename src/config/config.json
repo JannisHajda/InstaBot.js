@@ -1,12 +1,12 @@
 {
   "instagram": {
-    "username": "hpicodenightbot",
-    "password": "LeeWie66",
+    "username": "codenightbotv2",
+    "password": "LeeWie77",
     "base_url": "https://instagram.com",
     "comments": ["I like this!", "You are sexy!"],
-    "like_limit": 250,
-    "follow_limit": 40,
-    "comment_limit": 40,
+    "like_limit": 3,
+    "follow_limit": 3,
+    "comment_limit": 3,
     "hashtags": ["hund", "katze"]
   },
   "creator_studio": {
