@@ -7,7 +7,7 @@ const logger = require("morgan");
 const fs = require("fs");
 const ejs = require("ejs");
 
-const firebaseDatabase = require("./firebase/database");
+const database = require("./../config/database");
 
 //import route files
 const indexRouter = require("./routes/index");
@@ -16,6 +16,8 @@ const startstopRouter = require("./routes/startstop");
 
 //express setup
 const app = express();
+
+database.connect();
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -32,8 +34,7 @@ app.use("/", indexRouter);
 app.use("/hashtags", hashtagsRouter);
 app.use("/startstop", startstopRouter);
 
-firebaseDatabase.getConfig(data => {
-  console.log(data);
-});
+console.log(database.data);
+
 
 module.exports = app;
