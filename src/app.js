@@ -1,13 +1,15 @@
-const instabot = require("./core/instabot");
+const Instabot = require("./core/instabot");
 var intervall = null;
 const dbScript = require("../config/database");
 
-(async () => {
+
+
+/* (async () => {
   try {
     dbScript.connect(async () => {
-      InstaBot = new instabot(dbScript.data);
-      await InstaBot.initPuppeteer();
-      await InstaBot.loginInstagram();
+      instaBot = new Instabot(dbScript.data);
+      await instaBot.initPuppeteer();
+      await instaBot.loginInstagram();
       start();
     })
 
@@ -16,16 +18,23 @@ const dbScript = require("../config/database");
   }
 
 
-})();
+})(); */
 
 
-function start() {
-  InstaBot.interact();
+async function start() {
+  instaBot = new Instabot(dbScript.data);
+  await instaBot.initPuppeteer();
+  await instaBot.loginInstagram();
+  instaBot.interact();
   intervall = setInterval(function () {
-    InstaBot.interact();
+    instaBot.interact();
   }, 3600000);
 }
 
 function stop() {
   clearInterval(intervall);
 }
+
+module.exports = {
+  start, stop
+};

@@ -17,7 +17,9 @@ const startstopRouter = require("./routes/startstop");
 //express setup
 const app = express();
 
-database.connect();
+database.connect(() => {
+    console.log("web-interface connected to db");
+});
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

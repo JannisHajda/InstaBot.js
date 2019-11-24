@@ -18,13 +18,7 @@
         </ul>
         <form id="config" action="/" method="post">
             <h1>Config</h1>
-            <div id="creator-studio">
-                    <h2>Creator Studio</h2>
-                    <%Object.keys(config.creator_studio).forEach(key=>{%>
-                        <label><%= key%></label>
-                        <input name="creator_studio_<%=key%>" value="<%=config.creator_studio[key] %>"/>
-                    <% });%>
-            </div>
+
             <div id="instagram">
                 <h2>Instagram</h2>
                 <%Object.keys(config.instagram).forEach(key=>{%>

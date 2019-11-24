@@ -1,18 +1,19 @@
 var express = require('express');
 var router = express.Router();
-const firebaseDatabase = require("./../firebase/database");
-//const instabot = require("./../../src/index");
+const bot = require("./../../src/app");
 
 
-router.post('/', function(req, res, next) {
+
+router.post('/', function (req, res, next) {
+    console.log(bot);
     var action = req.body.action; //start or stop
-    if (action === "start"){
-            //instabot.start();
-            res.send("started");
-        
+    if (action === "start") {
+        bot.start();
+        res.send("started");
+
     }
-    else{
-        //instabot.stop();
+    else {
+        bot.stop();
         res.send("stopped")
     }
 });

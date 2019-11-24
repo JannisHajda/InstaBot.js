@@ -8,9 +8,9 @@ router.get('/', function (req, res, next) {
 
 });
 
-router.post('/', function (req, res, next) {
-    database.putHashtags(req.body.hashtags, hashtags => {
-        res.render("hashtags", { hashtags: database.data.hashtags });
-    });
+router.post('/', async (req, res, next) => {
+    var hashtags = await database.putHashtags().hashtags;
+    res.render("hashtags", { hashtags });
+
 });
 module.exports = router;
