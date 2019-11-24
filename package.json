@@ -2,14 +2,18 @@
   "name": "InstaBot.js",
   "version": "1.0.0",
   "description": "The perfect Bot for Instagram - featuring post-planing, liking and following features.",
-  "main": "index.js",
+  "main": "app.js",
   "repository": "https://github.com/jannishajda/InstaBot.js",
   "author": "Jannis Hajda",
   "license": "MIT",
   "private": false,
   "dependencies": {
-    "firebase-admin": "^8.8.0",
+    "mongodb": "^3.3.4",
+    "mongoose": "^5.7.12",
     "puppeteer": "^2.0.0",
     "puppeteer-autoscroll-down": "^0.1.2"
+  },
+  "scripts": {
+    "start": "node src/app.js"
   }
 }
