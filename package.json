@@ -8,6 +8,8 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
-    "puppeteer": "^2.0.0"
+    "firebase-admin": "^8.8.0",
+    "puppeteer": "^2.0.0",
+    "puppeteer-autoscroll-down": "^0.1.2"
   }
 }

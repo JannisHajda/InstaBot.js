@@ -1,6 +1,10 @@
+const scrollPageBottom = require("puppeteer-autoscroll-down");
+
 class InstaBot {
   constructor() {
     this.config = require("../config/config.json");
+    this.ids = [];
+    this.usernames = [];
   }
 
   async initPuppeteer() {
@@ -15,6 +19,13 @@ class InstaBot {
 
   async closeBrowser() {
     await this.page.close();
+  }
+
+  async interact() {
+    await this.search(["dog", "cat"]);
+    await this.like(this.ids);
+    await this.follow(this.ids);
+    await this.comment(this.ids);
   }
 
   async loginInstagram() {
@@ -38,28 +49,32 @@ class InstaBot {
       this.config.instagram.password,
       { delay: 125 }
     );
-    await this.page.waitFor(500);
+    await this.page.waitFor('input[type="text"]');
 
     /* Click login button */
     loginButton = await this.page.$('button[type="submit"]');
     await loginButton.click();
 
-    await this.page.waitFor(1000);
+    await this.page.waitFor(3000);
   }
 
+  //likes B5O55cyHOYr
   async like(ids) {
     for (var i = 0; i < ids.length; i++) {
       await this.page.goto("https://www.instagram.com/p/" + ids[i], {
         waitUntil: "networkidle2"
       });
+      try {
+        let likeButton = await this.page.$('span[aria-label="Like"]');
 
-      let likeButton = await this.page.$('span[aria-label="Like"]');
-
-      await likeButton.click();
+        await likeButton.click();
+      } catch {}
       await this.page.waitFor(1000);
+      console.log("Liked");
     }
   }
 
+  //comment
   async comment(ids) {
     /* Comment Feld */
 
@@ -83,66 +98,104 @@ class InstaBot {
     await this.page.waitFor(500);
   }
 
-  async follow(usernames) {
+  //follow
+  async follow(ids) {
     //go to user
-    for (var i = 0; i < usernames.length; i++) {
-      await this.page.goto("https://www.instagram.com/" + usernames[i], {
+    for (var i = 0; i < ids.length; i++) {
+      await this.page.goto("https://www.instagram.com/p/" + ids[i], {
         waitUntil: "networkidle2"
       });
 
-      //Followen
-      let followButton = await this.page.$x(
-        '//button[contains(text(), "Follow")]'
-      );
-      await followButton[0].click();
+      try {
+        let followButton = await this.page.$x(
+          "/html/body/span/section/main/div/div/article/header/div[2]/div[1]/div[2]/button"
+        );
+        await followButton[0].click();
+      } catch (e) {
+        console.log(e);
+      }
       await this.page.waitFor(1000);
     }
   }
 
-  async unfollow() {
+  async unfollow(ids) {
     //go to user
-    for (var i = 0; i < usernames.length; i++) {
-      await this.page.goto("https://www.instagram.com/" + usernames[i], {
+    for (var i = 0; i < ids.length; i++) {
+      await this.page.goto("https://www.instagram.com/p/" + ids[i], {
         waitUntil: "networkidle2"
       });
 
-      //Unfollow
-      let followButton = await this.page.$x(
-        '//button[contains(text(), "Following")]'
-      );
-      await followButton[0].click();
+      try {
+        let followButton = await this.page.$x(
+          "/html/body/span/section/main/div/div/article/header/div[2]/div[1]/div[2]/button"
+        );
+        await followButton[0].click();
+
+        await this.page.waitFor(500);
+
+        let confirm = await this.page.$x(
+          "/html/body/div[3]/div/div/div[3]/button[1]"
+        );
+
+        await confirm[0].click();
+      } catch (e) {
+        console.log(e);
+      }
       await this.page.waitFor(1000);
     }
   }
 
   async search(hashtags) {
-    let ids = [];
-
-    for (let i = 0; i < hashtags.length; i++) {
+    for (let h of hashtags) {
       await this.page.goto(
-        `${this.config.instagram.base_url}/explore/tags/${hashtags[i]}`
+        `${this.config.instagram.base_url}/explore/tags/${h}`
       );
+      let ids = [];
+      while (
+        ids.length <=
+        Math.floor(this.config.instagram.like_limit / hashtags.length)
+      ) {
+        await this.page.waitFor("article");
+        let article = await this.page.$("article");
 
-      await this.page.waitFor(1000);
+        let recentPosts = await article.$x(
+          "/html/body/span/section/main/article/div[2]"
+        );
 
-      let article = await this.page.$("article");
+        let hrefs = await recentPosts[0].$$eval("a", links =>
+          links.map(link => link.href)
+        );
 
-      let recentPosts = await article.$x(
-        "/html/body/span/section/main/article/div[2]"
-      );
+        hrefs.forEach(href => {
+          href = href.replace("https://www.instagram.com/p/", "");
+          href = href.replace("/", "");
+          if (
+            !ids.includes(href) &&
+            ids.length <=
+              Math.floor(
+                this.config.instagram.like_limit /
+                  this.config.instagram.hashtags.length
+              )
+          ) {
+            ids.push(href);
+            this.ids.push(href);
+          }
+        });
 
-      let hrefs = await recentPosts[0].$$eval("a", links =>
-        links.map(link => link.href)
-      );
+        let previousHeight = await this.page.evaluate(
+          "document.body.scrollHeight"
+        );
 
-      hrefs.forEach(href => {
-        href = href.replace("https://www.instagram.com/p/", "");
-        href = href.replace("/", "");
-        ids.push(href);
-      });
+        await this.page.evaluate(
+          "window.scrollTo(0, document.body.scrollHeight)"
+        );
+
+        await this.page.waitForFunction(
+          `document.body.scrollHeight > ${previousHeight}`
+        );
+      }
     }
-
-    console.log(ids);
+    console.log(this.ids);
   }
 
   async loginCreatorStudio() {

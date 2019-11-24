@@ -1,9 +1,13 @@
 {
   "instagram": {
-    "username": "shototd",
-    "password": "lXflz00Tr11P7hsh&#kC",
+    "username": "hpicodenightbot",
+    "password": "LeeWie66",
     "base_url": "https://instagram.com",
-    "comments": ["I like this!", "You are sexy!"]
+    "comments": ["I like this!", "You are sexy!"],
+    "like_limit": 250,
+    "follow_limit": 40,
+    "comment_limit": 40,
+    "hashtags": ["hund", "katze"]
   },
   "creator_studio": {
     "email": "",
