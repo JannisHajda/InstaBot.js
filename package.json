@@ -8,12 +8,22 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
+    "cookie-parser": "^1.4.4",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "fs": "^0.0.1-security",
+    "http-errors": "^1.7.3",
     "mongodb": "^3.3.4",
     "mongoose": "^5.7.12",
+    "morgan": "^1.9.1",
+    "path": "^0.12.7",
     "puppeteer": "^2.0.0",
     "puppeteer-autoscroll-down": "^0.1.2"
   },
   "scripts": {
-    "start": "node src/app.js"
+    "start": "node web-interface/bin/www"
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.0"
   }
 }
