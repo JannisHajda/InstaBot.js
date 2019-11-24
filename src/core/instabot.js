@@ -1,8 +1,9 @@
 const scrollPageBottom = require("puppeteer-autoscroll-down");
+const dbScript = require("./../config/database");
 
 class InstaBot {
-  constructor() {
-    this.config = require("../config/config.json");
+  constructor(config) {
+    this.config = config;
     this.ids = [];
     this.usernames = [];
   }
@@ -68,7 +69,7 @@ class InstaBot {
         let likeButton = await this.page.$('span[aria-label="Like"]');
 
         await likeButton.click();
-      } catch {}
+      } catch { }
       await this.page.waitFor(1000);
       console.log("Liked");
     }
@@ -86,7 +87,7 @@ class InstaBot {
       await this.page.type(
         'textarea[aria-label="Add a comment…"]',
         this.config.instagram.comments[
-          Math.floor(Math.random() * this.config.instagram.comments.length - 1)
+        Math.floor(Math.random() * this.config.instagram.comments.length - 1)
         ],
         { delay: 125 }
       );
@@ -172,10 +173,10 @@ class InstaBot {
           if (
             !ids.includes(href) &&
             ids.length <=
-              Math.floor(
-                this.config.instagram.like_limit /
-                  this.config.instagram.hashtags.length
-              )
+            Math.floor(
+              this.config.instagram.like_limit /
+              this.config.instagram.hashtags.length
+            )
           ) {
             ids.push(href);
             this.ids.push(href);

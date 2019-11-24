@@ -8,10 +8,12 @@
   "license": "MIT",
   "private": false,
   "dependencies": {
-    "firebase-admin": "^8.8.0",
+    "mongodb": "^3.3.4",
+    "mongoose": "^5.7.12",
     "puppeteer": "^2.0.0",
     "puppeteer-autoscroll-down": "^0.1.2"
-  },"scripts": {
-    "start" : "node src/app.js"
+  },
+  "scripts": {
+    "start": "node src/app.js"
   }
 }
