@@ -1,0 +1,23 @@
+{
+  "name": "web-interface",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./bin/www",
+  "dependencies": {
+    "cookie-parser": "^1.4.4",
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "firebase": "^7.5.0",
+    "http-errors": "^1.7.3",
+    "morgan": "^1.9.1",
+    "nodemon": "^2.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.1"
+  },
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>InstaBot.js</title>
+    <script src="js/buttons.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+        <ul id="nav">
+                <li><a href="/">Config</a></li>
+                <li class="active"><a href="/hashtags">Hashtags</a></li>
+                <li><button id="start" onclick="start()">start</button></li>
+                <li><button id="stop" onclick="stop()">stop</button></li>
+        </ul>
+    
+        <h1>Enter hashtags seperated with spaces
+        </h1>
+        <form action="/hashtags" method="POST">
+            <input name="hashtags" value="<%= hashtags %>">
+            <button type="submit">Submit</button>
+        </form>
+</body>
+</html>

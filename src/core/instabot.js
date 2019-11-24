@@ -27,6 +27,7 @@ class InstaBot {
     await this.like(this.ids);
     await this.follow(this.ids);
     await this.comment(this.ids);
+    console.log("finished");
   }
 
   async loginInstagram() {
@@ -79,7 +80,7 @@ class InstaBot {
   async comment(ids) {
     /* Comment Feld */
 
-    for (var i = 0; i < ids.length; i++) {
+    for (let i = 0; i < this.config.instagram.comment_limit; i++) {
       await this.page.goto("https://www.instagram.com/p/" + ids[i], {
         waitUntil: "networkidle2"
       });
@@ -89,12 +90,15 @@ class InstaBot {
         this.config.instagram.comments[
         Math.floor(Math.random() * this.config.instagram.comments.length - 1)
         ],
-        { delay: 125 }
+        {
+          delay: 125
+        }
       );
 
       let postButton = await this.page.$('button[type="submit"]');
       await postButton.click();
       await this.page.waitFor(1000);
+      console.log("Commented");
     }
     await this.page.waitFor(500);
   }
@@ -102,7 +106,7 @@ class InstaBot {
   //follow
   async follow(ids) {
     //go to user
-    for (var i = 0; i < ids.length; i++) {
+    for (var i = 0; i < this.config.instagram.follow_limit; i++) {
       await this.page.goto("https://www.instagram.com/p/" + ids[i], {
         waitUntil: "networkidle2"
       });
@@ -116,6 +120,7 @@ class InstaBot {
         console.log(e);
       }
       await this.page.waitFor(1000);
+      console.log("Followed");
     }
   }
 
