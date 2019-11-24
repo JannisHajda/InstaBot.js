@@ -1,6 +1,6 @@
 const instabot = require("./core/instabot");
 var intervall = null;
-const dbScript = require("./config/database");
+const dbScript = require("../config/database");
 
 (async () => {
   try {

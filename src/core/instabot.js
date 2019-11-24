@@ -1,5 +1,5 @@
 const scrollPageBottom = require("puppeteer-autoscroll-down");
-const dbScript = require("./../config/database");
+const dbScript = require("../../config/database");
 
 class InstaBot {
   constructor(config) {
